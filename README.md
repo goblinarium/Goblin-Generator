@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Built on top of the [Super Simple Static Site](https://github.com/MaxPRafferty/s4)
 
 ## Available Scripts
 
@@ -28,3 +28,7 @@ Your app is ready to be deployed!
 ### `npm run deploy`
 
 Copies a fresh production build into `/docs` in preparation for deployment.
+
+-----------------------------------------------   
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
