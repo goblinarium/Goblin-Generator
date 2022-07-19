@@ -25,6 +25,8 @@ article {
   border-radius: 50px;
   margin-bottom: 50px;
   padding: 45;
+  max-width: 950px;
+  margin: auto;
 }
 
 article h3 {

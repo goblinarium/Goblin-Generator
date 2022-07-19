@@ -31,7 +31,7 @@ const Binder = styled.div`
 
 const SheetBlank = styled.div`
     width: 40%;
-    height: 350px;
+    height: 300px;
     display: inline-block;
     float: right;
     padding: 14px;
@@ -72,6 +72,10 @@ const getGoblinName = () => {
 };
 
 const goblinName = getGoblinName();
+const title = document.querySelector("title");
+const PAGE_NAME = document.createTextNode(` - ${goblinName}`);
+title.appendChild(PAGE_NAME);
+
 const STORAGE_KEY = "images";
 const DEFAULT_GOBLIN =
     "https://cdn.drawception.com/images/panels/2017/8-7/pwXznQa6Pj-4.png";
@@ -83,7 +87,7 @@ if (localImages != null) {
     imagePromise = fetch(
         `https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/ImageSearchAPI?q=${encodeURI(
             goblinName + " goblin"
-        )}&pageNumber=1&pageSize=10&autoCorrect=true`,
+        )}&pageNumber=1&pageSize=100&autoCorrect=true`,
         options
     )
         .then((response) => response.json())
@@ -134,8 +138,15 @@ function App() {
     const regen = () => {
         const images = JSON.parse(localStorage.getItem(STORAGE_KEY));
         setImageUrl(grabRandomProperty(images, SEED));
-        debugger;
-        setName(getGoblinName());
+        const newName = getGoblinName();
+        setName(newName);
+        const NEW_PAGE_NAME = document.createTextNode(
+            `Goblinarium Goblin Generator - ${newName}`
+        );
+        while (title.lastChild) {
+            title.removeChild(title.lastChild);
+        }
+        title.appendChild(NEW_PAGE_NAME);
         setAdjective(grabRandomProperty(characterInfo.adjective, SEED));
         setRace(grabRandomProperty(characterInfo.race, SEED));
         setLocation(grabRandomProperty(characterInfo.location, SEED));
