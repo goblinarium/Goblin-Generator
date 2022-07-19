@@ -979,7 +979,7 @@ const data = {
         "Licker (taste)",
         "Sniffer (smell)",
         "Musician (sound)",
-        "Fraud (lied about having powers but it keeps working)",
+        "Fraud (lied about having powers but people keep believing you and it keeps working out somehow)",
         "",
         "",
         "",

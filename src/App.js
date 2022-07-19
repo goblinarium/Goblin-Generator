@@ -243,7 +243,9 @@ function App() {
                         <p>
                             <b>Star Sign:</b> {starSign}
                         </p>
-                        <SheetBlank>Inventory/Notes</SheetBlank>
+                        <SheetBlank className="blank-spot">
+                            Inventory/Notes
+                        </SheetBlank>
                         <p>
                             <b>Fave Mario Kart Guy*:</b> {kart}
                         </p>
