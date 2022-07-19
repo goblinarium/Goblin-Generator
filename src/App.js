@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import characterInfo from "./constants.data";
+import Menu from "./Menu";
 import grabRandomProperty from "./util.grabRandomProperty";
 
 const SEED = Math.random() * 1000000;
@@ -15,13 +16,22 @@ const options = {
     },
 };
 
-const goblinName = `${grabRandomProperty(
-    characterInfo.name,
-    SEED
-)} ${grabRandomProperty(characterInfo.familial, SEED).replace(
-    "$",
-    grabRandomProperty(characterInfo.name, SEED)
-)}`;
+const getGoblinName = () => {
+    try {
+        return `${grabRandomProperty(
+            characterInfo.name,
+            SEED
+        )} ${grabRandomProperty(characterInfo.familial, SEED).replace(
+            "$",
+            grabRandomProperty(characterInfo.name, SEED)
+        )}`;
+    } catch (err) {
+        console.log(err);
+    }
+    return "Beef";
+};
+
+const goblinName = getGoblinName();
 const STORAGE_KEY = "images";
 const DEFAULT_GOBLIN =
     "https://cdn.drawception.com/images/panels/2017/8-7/pwXznQa6Pj-4.png";
@@ -49,43 +59,86 @@ const secondPromise = imagePromise.then((images) => {
 
 function App() {
     const [imageUrl, setImageUrl] = useState(null);
+    const [imageResolved, setImageResolved] = useState(false);
+    const [name, setName] = useState(goblinName);
+    const [adjective, setAdjective] = useState(
+        grabRandomProperty(characterInfo.adjective, SEED)
+    );
+    const [race, setRace] = useState(
+        grabRandomProperty(characterInfo.race, SEED)
+    );
+    const [location, setLocation] = useState(
+        grabRandomProperty(characterInfo.location, SEED)
+    );
+    const [backstory, setBackstory] = useState(
+        grabRandomProperty(characterInfo.backstory, SEED)
+    );
+
+    const regen = () => {
+        const images = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        setImageUrl(grabRandomProperty(images, SEED));
+        debugger;
+        setName(getGoblinName());
+        setAdjective(grabRandomProperty(characterInfo.adjective, SEED));
+        setRace(grabRandomProperty(characterInfo.race, SEED));
+        setLocation(grabRandomProperty(characterInfo.location, SEED));
+        setBackstory(grabRandomProperty(characterInfo.backstory, SEED));
+    };
+
     secondPromise
         .then((image) => {
-            setImageUrl(image);
+            if (!imageResolved) {
+                setImageUrl(image);
+                setImageResolved(true);
+            }
         })
         .catch((err) => {
-            console.error(err);
-            setImageUrl(DEFAULT_GOBLIN);
+            if (!imageResolved) {
+                console.error(err);
+                setImageUrl(DEFAULT_GOBLIN);
+            }
         });
     return (
         <div className="App">
             <header className="App-header">
+                <Menu></Menu>
                 <h1>GOBLINARIUM GOBLIN GENERATOR</h1>
             </header>
             <article>
-                <h2>You are...</h2>
-                <h3>{goblinName}</h3>
-                <p className="gobboPortrait">
-                    {imageUrl && (
-                        <img
-                          alt={goblinName + 'the goblin'}
-                          height='100'
-                            src={imageUrl}
-                            onError={(e) => {
-                                e.target.src = DEFAULT_GOBLIN;
-                            }}
-                        />
-                    )}
-                </p>
-                <p>
-                    {"A "}
-                    {grabRandomProperty(characterInfo.adjective, SEED) + " "}
-                    {grabRandomProperty(characterInfo.race, SEED) + " goblin "}
-                    from{" "}
-                    {grabRandomProperty(characterInfo.location, SEED) + " "}
-                    who{" "}
-                    {grabRandomProperty(characterInfo.backstory, SEED) + "!"}
-                </p>
+                <section>
+                    <h2>You are...</h2>
+                    <h3>{name}</h3>
+                    <p className="gobboPortrait">
+                        {imageUrl && (
+                            <img
+                                alt={name + "the goblin"}
+                                height="100"
+                                src={imageUrl}
+                                onError={(e) => {
+                                    debugger;
+                                    e.target.src = DEFAULT_GOBLIN;
+                                }}
+                            />
+                        )}
+                    </p>
+                    <p>
+                        {"A "}
+                        {adjective + " "}
+                        {race + " goblin "}
+                        from {location + " "}
+                        who {backstory + "!"}
+                    </p>
+                </section>
+                <section>
+                    <a
+                        href="#"
+                        onClick={() => {
+                            regen();
+                        }}
+                    >
+                        GIBBE MORE WORMS
+                    </a>
+                </section>
             </article>
             <footer>
                 <p>
