@@ -12,3 +12,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@media print { 
+  header, footer, nav, h1, .App-header, section:not(.sheets) {
+    display: none;
+  }
+
+  .App-header {
+    min-height: 0;
+  }
+
+  .sheets {
+    margin-top: -70px;
+  }
+
+  img {
+    filter: grayscale(100%);
+  }
+}

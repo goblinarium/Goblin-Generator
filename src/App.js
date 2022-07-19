@@ -9,6 +9,7 @@ import grabRandomProperty from "./util.grabRandomProperty";
 const SEED = Math.random() * 1000000;
 
 const Sheet = styled.div`
+    position: relative;
     border: 1px solid grey;
     padding: 30px;
     margin: 50px;
@@ -36,6 +37,13 @@ const SheetBlank = styled.div`
     padding: 14px;
     margin: 8px;
     border: 1px solid grey;
+`;
+
+const PrintIcon = styled.span`
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
 `;
 
 const options = {
@@ -206,6 +214,7 @@ function App() {
                 </section>
                 <section className="sheets">
                     <Sheet>
+                        <PrintIcon onClick={() => window.print()}>🖨️</PrintIcon>
                         <p className="sheet-name">
                             Name: {name}
                             {imageUrl && (
@@ -228,13 +237,13 @@ function App() {
                         <p>
                             <b>Morph:</b> {race}
                         </p>
-                        <SheetBlank>Inventory/Notes</SheetBlank>
                         <p>
                             <b>Class:</b> {charClass}
                         </p>
                         <p>
                             <b>Star Sign:</b> {starSign}
                         </p>
+                        <SheetBlank>Inventory/Notes</SheetBlank>
                         <p>
                             <b>Fave Mario Kart Guy*:</b> {kart}
                         </p>

@@ -2,17 +2,6 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   font-family: 'Rubik Moonrocks', cursive, 'Impact', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -56,6 +45,10 @@ footer {
 
 footer p {
   margin: 5px 0 0 0;
+}
+
+.sheets {
+  text-align: left;
 }
 
 section.sheets  p {
