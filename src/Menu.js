@@ -17,10 +17,12 @@ const HiddenMenu = styled.div`
     background-color: black;
     z-index: 2;
     transition: left 1s;
+    font-family: "Impact", "Helvetica", "Helvetica Neue", arial, sans;
 `;
 
 const MenuShirt = styled.div`
     position: relative;
+    padding-top: 40px;
     width: 100%;
     height: 100%;
 `;
@@ -42,7 +44,7 @@ const MenuCloser = styled.div`
     color: transparent;
 `;
 
-const Menu = () => {
+const Menu = ({ clearImageCache }) => {
     const [open, setOpen] = useState(false);
     return (
         <>
@@ -56,6 +58,25 @@ const Menu = () => {
             <HiddenMenu style={{ left: open ? "0" : "-50vw" }}>
                 <MenuShirt>
                     <CloseButton onClick={() => setOpen(false)}>X</CloseButton>
+                    <div>
+                        <p>
+                            <button onClick={clearImageCache}>
+                                Clear Image Cache & Reload
+                            </button>
+                        </p>
+                        <p>
+                            <input
+                                type="checkbox"
+                                id="active-only-check"
+                                name="active-only-check"
+                                checked
+                                readOnly
+                            ></input>
+                            <label for="active-only-check">
+                                &nbsp;&nbsp;Allow Only Active Campaign Options
+                            </label>
+                        </p>
+                    </div>
                 </MenuShirt>
             </HiddenMenu>
             <MenuCloser

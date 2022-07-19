@@ -58,6 +58,28 @@ footer p {
   margin: 5px 0 0 0;
 }
 
+section.sheets  p {
+  font-size: 14px;
+  font-weight: normal;
+}
+
+section.sheets .minor-info {
+  font-weight: normal;
+  font-size: 14px;
+}
+
+section.sheets .very-minor {
+  font-weight: normal;
+  font-size: 10px;
+}
+
+section.sheets .sheet-name {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
