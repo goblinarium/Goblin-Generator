@@ -21,6 +21,7 @@ const data = {
     name: [
         "Sam",
         "Smork",
+        "Scooch",
         "Dave",
         "Dan",
         "The Devil",
