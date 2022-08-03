@@ -179,7 +179,7 @@ function App() {
                 <Menu
                     clearImageCache={() => {
                         localStorage.removeItem(STORAGE_KEY);
-                        location.reload(true);
+                        window.location.reload(true);
                     }}
                 ></Menu>
                 <h1>GOBLINARIUM GOBLIN GENERATOR</h1>
