@@ -17,6 +17,7 @@ const data = {
         "$lin",
         "$e",
         "$ula",
+        "$eater",
     ],
     name: [
         "Sam",
