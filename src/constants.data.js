@@ -18,6 +18,8 @@ const data = {
         "$e",
         "$ula",
         "$eater",
+        "$butt",
+        "$a",
     ],
     name: [
         "Sam",
