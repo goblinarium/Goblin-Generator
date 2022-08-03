@@ -244,7 +244,7 @@ const data = {
         "Lisa",
         "Homer",
         "Marge",
-        "Bart"
+        "Bart",
         "Maggie",
         "Tina",
         "Mari",
