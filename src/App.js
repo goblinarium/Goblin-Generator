@@ -307,7 +307,7 @@ function App() {
                 <p>
                     The Goblinarium and Goblins presented here are Copyright{" "}
                     <a href="https://maxrafferty.com/">Max Rafferty</a> 2022,
-                    all rights reserved. No rights for u. Hehe.
+                    all rights reserved. No rights for u. <a href="https://github.com/goblinarium/Goblin-Generator">Hehe.</a>
                 </p>
                 <p>
                     Non goblinarium generator inputs on open source loan from{" "}

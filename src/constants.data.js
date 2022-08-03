@@ -17,10 +17,12 @@ const data = {
         "$lin",
         "$e",
         "$ula",
+        "$eater",
     ],
     name: [
         "Sam",
         "Smork",
+        "Scooch",
         "Dave",
         "Dan",
         "The Devil",
