@@ -113,7 +113,7 @@ const Menu = ({
                             </a>
                         </p>
                         <p>
-                            <label for="name-input">Goblin Name:</label>
+                            <label for="name-input">Stat System:&nbsp;</label>
                             <select
                                 id="statblock-select"
                                 name="statblock-select"
