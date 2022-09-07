@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import StatblockMenu from "./StatblockMenu";
 
 const MenuButton = styled.nav`
     position: fixed;
@@ -128,6 +129,18 @@ const Menu = ({
                                 ))}
                             </select>
                         </p>
+                        {availableStatbocks[0] === selectedStatblock && (
+                            <StatblockMenu
+                                statblock={dnDStatblock}
+                                setStatblock={setDnDStatblock}
+                            />
+                        )}
+                        {availableStatbocks[1] === selectedStatblock && (
+                            <StatblockMenu
+                                statblock={foolStatblock}
+                                setStatblock={setFoolStatblock}
+                            />
+                        )}
                     </div>
                 </MenuShirt>
             </HiddenMenu>
