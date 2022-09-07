@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import "./App.css";
 import characterInfo from "./constants.data";
 import Menu from "./Menu";
+import DnDStatblock from "./Statblock.DnD";
+import FoolStatblock from "./Statblock.Fool";
 import generateStatBlock from "./util.generateStatBlock";
 import grabRandomProperty from "./util.grabRandomProperty";
 
@@ -56,11 +58,11 @@ const options = {
     },
 };
 
-const getGoblinName = () => {
+const getGoblinName = (seed) => {
     try {
         return `${grabRandomProperty(
             characterInfo.name,
-            SEED
+            seed
         )} ${grabRandomProperty(characterInfo.familial, SEED).replace(
             "$",
             grabRandomProperty(characterInfo.name, SEED)
@@ -101,7 +103,15 @@ const secondPromise = imagePromise.then((images) => {
     return Promise.resolve(image);
 });
 
+const AVAILABLE_STATBLOCKS = ["Dungeons & Dragons", "Goblinarium"];
+
 function App() {
+    const [selectedStatblock, setSelectedStatblock] = useState(
+        localStorage.getItem("statblock") || AVAILABLE_STATBLOCKS[1]
+    );
+    useEffect(() => {
+        localStorage.setItem("statblock", selectedStatblock);
+    }, [selectedStatblock]);
     const [imageUrl, setImageUrl] = useState(null);
     const [imageResolved, setImageResolved] = useState(false);
     const [name, setName] = useState(goblinName);
@@ -132,8 +142,16 @@ function App() {
     const [jobSpecial, setJobSpecial] = useState(
         grabRandomProperty(characterInfo.job, SEED)
     );
-    const [currentJob, setCurrentJob] = useState(characterInfo.job[0]);
-    const [statblock, setStatblock] = useState(generateStatBlock());
+    // const [currentJob, setCurrentJob] = useState(characterInfo.job[0]);
+    const [currentJob, setCurrentJob] = useState(
+        grabRandomProperty(characterInfo.job, SEED)
+    );
+    const [foolStatblock, setFoolStatblock] = useState(
+        generateStatBlock(7, 11)
+    );
+    const [dnDStatblock, setDnDStatblock] = useState(
+        generateStatBlock(6, 72, 15)
+    );
 
     const regen = () => {
         const images = JSON.parse(localStorage.getItem(STORAGE_KEY));
@@ -157,7 +175,8 @@ function App() {
         setSense(grabRandomProperty(characterInfo.auger, SEED));
         setJobSpecial(grabRandomProperty(characterInfo.job, SEED));
         setCurrentJob(characterInfo.job[0]);
-        setStatblock(generateStatBlock());
+        setFoolStatblock(generateStatBlock(7, 11));
+        setDnDStatblock(generateStatBlock(6, 72, 15));
     };
 
     secondPromise
@@ -181,6 +200,16 @@ function App() {
                         localStorage.removeItem(STORAGE_KEY);
                         window.location.reload(true);
                     }}
+                    name={name}
+                    setName={setName}
+                    getName={getGoblinName}
+                    foolStatblock={foolStatblock}
+                    setFoolStatblock={setFoolStatblock}
+                    availableStatbocks={AVAILABLE_STATBLOCKS}
+                    dnDStatblock={dnDStatblock}
+                    setDnDStatblock={setDnDStatblock}
+                    selectedStatblock={selectedStatblock}
+                    setSelectedStatblock={setSelectedStatblock}
                 ></Menu>
                 <h1>GOBLINARIUM GOBLIN GENERATOR</h1>
             </header>
@@ -269,34 +298,12 @@ function App() {
                         <p>
                             <b>Current Job:</b> {currentJob}
                         </p>
-                        <p>
-                            <b>Common Sense:</b>{" "}
-                            {characterInfo.skillLevels[statblock[0]]}
-                        </p>
-                        <p>
-                            <b>Cursing:</b>{" "}
-                            {characterInfo.skillLevels[statblock[1]]}
-                        </p>
-                        <p>
-                            <b>Sneaking:</b>{" "}
-                            {characterInfo.skillLevels[statblock[2]]}
-                        </p>
-                        <p>
-                            <b>Strength:</b>{" "}
-                            {characterInfo.skillLevels[statblock[3]]}
-                        </p>
-                        <p>
-                            <b>Brains:</b>{" "}
-                            {characterInfo.skillLevels[statblock[4]]}
-                        </p>
-                        <p>
-                            <b>Coolness:</b>{" "}
-                            {characterInfo.skillLevels[statblock[5]]}
-                        </p>
-                        <p>
-                            <b>Luck:</b>{" "}
-                            {characterInfo.skillLevels[statblock[6]]}
-                        </p>
+                        {selectedStatblock === AVAILABLE_STATBLOCKS[0] && (
+                            <DnDStatblock statblock={dnDStatblock} />
+                        )}
+                        {selectedStatblock === AVAILABLE_STATBLOCKS[1] && (
+                            <FoolStatblock statblock={foolStatblock} />
+                        )}
                         <p className="very-minor">
                             *if gobs knew about mario kart
                         </p>
@@ -307,7 +314,10 @@ function App() {
                 <p>
                     The Goblinarium and Goblins presented here are Copyright{" "}
                     <a href="https://maxrafferty.com/">Max Rafferty</a> 2022,
-                    all rights reserved. No rights for u. <a href="https://github.com/goblinarium/Goblin-Generator">Hehe.</a>
+                    all rights reserved. No rights for u.{" "}
+                    <a href="https://github.com/goblinarium/Goblin-Generator">
+                        Hehe.
+                    </a>
                 </p>
                 <p>
                     Non goblinarium generator inputs on open source loan from{" "}

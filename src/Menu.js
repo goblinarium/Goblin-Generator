@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const MenuButton = styled.nav`
-    position: absolute;
+    position: fixed;
     cursor: pointer;
     left: 10px;
     top: 10px;
+    @media print {
+        display: none;
+    }
 `;
 
 const HiddenMenu = styled.div`
@@ -44,7 +47,19 @@ const MenuCloser = styled.div`
     color: transparent;
 `;
 
-const Menu = ({ clearImageCache }) => {
+const Menu = ({
+    clearImageCache,
+    name,
+    setName,
+    getName,
+    foolStatblock,
+    setFoolStatblock,
+    availableStatbocks,
+    dnDStatblock,
+    setDnDStatblock,
+    selectedStatblock,
+    setSelectedStatblock,
+}) => {
     const [open, setOpen] = useState(false);
     return (
         <>
@@ -69,12 +84,49 @@ const Menu = ({ clearImageCache }) => {
                                 type="checkbox"
                                 id="active-only-check"
                                 name="active-only-check"
-                                checked
                                 readOnly
                             ></input>
                             <label for="active-only-check">
                                 &nbsp;&nbsp;Allow Only Active Campaign Options
                             </label>
+                        </p>
+                        <p>
+                            <label for="name-input">Goblin Name:</label>
+                            &nbsp;
+                            <input
+                                type="text"
+                                id="name-input"
+                                name="name-input"
+                                value={name}
+                                onChange={(val) => {
+                                    setName(val.target.value);
+                                }}
+                            ></input>
+                            <a
+                                href="#"
+                                onClick={() => {
+                                    setName(getName());
+                                }}
+                            >
+                                &#128260;
+                            </a>
+                        </p>
+                        <p>
+                            <label for="name-input">Goblin Name:</label>
+                            <select
+                                id="statblock-select"
+                                name="statblock-select"
+                                value={selectedStatblock}
+                                onChange={(e) =>
+                                    setSelectedStatblock(e.target.value)
+                                }
+                            >
+                                {availableStatbocks.map((statblockName) => (
+                                    <option value={statblockName}>
+                                        {statblockName}
+                                    </option>
+                                ))}
+                            </select>
                         </p>
                     </div>
                 </MenuShirt>
